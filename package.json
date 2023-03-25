@@ -1,0 +1,41 @@
+{
+  "name": "gunun-ingilizce-kelimesi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
+    "start:dev": "pm2 start --env dev",
+    "start:test": "pm2 start --env test",
+    "start:prod": "pm2 start --env prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gulalicelik/gunun-ingilizce-kelimesi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gulalicelik/gunun-ingilizce-kelimesi/issues"
+  },
+  "homepage": "https://github.com/gulalicelik/gunun-ingilizce-kelimesi#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "pm2": "^5.2.2",
+    "sequelize": "^6.25.5",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.5.2"
+  }
+}
