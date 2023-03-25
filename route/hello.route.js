@@ -4,6 +4,6 @@ const router = express.Router();
 const helloController = require('../controller/hello.controller.js');
 
 
-router.post('/',  helloController.hello);
+router.get('/',  helloController.hello);
 
 module.exports = router;

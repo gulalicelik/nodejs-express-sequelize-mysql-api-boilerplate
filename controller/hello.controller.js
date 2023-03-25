@@ -1,6 +1,12 @@
 
 const hello = (req, res) => {
-    res.send('Hello World!')
+    res.send({
+        status: 'success',
+        code  : 200,
+        data  : {
+            message: 'You are here now...'
+        }
+    })
 }
 
 
