@@ -6,7 +6,10 @@ const routeManager = require('./route/route.manager.js')
 const db = require("./models/index");
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const swaggerDocs = require('./swagger.js')
 
+
+app.use(express.json())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
@@ -20,6 +23,7 @@ db.sequelize.sync()
     });
 
 routeManager(app)
+swaggerDocs(app, process.env.PORT)
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -42,5 +46,5 @@ app.use(function (req, res, next) {
 
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}.`);
+    console.log(`:::::::::::::::: SERVER RUNNING ON ${process.env.PORT}.`);
 });
