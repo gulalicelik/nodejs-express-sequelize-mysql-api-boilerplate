@@ -1,8 +1,11 @@
 {
-  "name": "@karinca/nodejs-express-sequelize-mysql-api-boilerplate",
-  "version": "1.0.0",
+  "name": "@gulali/nodejs-express-sequelize-mysql-api-boilerplate",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "start:dev": "pm2 start --env dev",
