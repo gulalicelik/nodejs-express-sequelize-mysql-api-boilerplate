@@ -1,5 +1,5 @@
 {
-  "name": "gunun-ingilizce-kelimesi",
+  "name": "nodejs-express-sequelize-mysql-api-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gulalicelik/gunun-ingilizce-kelimesi.git"
+    "url": "git+https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/gulalicelik/gunun-ingilizce-kelimesi/issues"
+    "url": "https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/issues"
   },
-  "homepage": "https://github.com/gulalicelik/gunun-ingilizce-kelimesi#readme",
+  "homepage": "https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/blob/main/README.md",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
