@@ -1,6 +1,6 @@
 {
   "name": "@gulali/nodejs-express-sequelize-mysql-api-boilerplate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "publishConfig": {
