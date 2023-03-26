@@ -6,9 +6,7 @@ clone this repo and start your project
 ## Installation
 
 ```bash
-git clone https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate.git
-npm install
-npm run prepare
+npx @gulali/nodejs-express-sequelize-mysql-api-boilerplate my-project-api
 ```
 
 ## Usage
