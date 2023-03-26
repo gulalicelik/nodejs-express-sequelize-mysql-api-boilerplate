@@ -1,6 +1,6 @@
 {
   "name": "@gulali/nodejs-express-sequelize-mysql-api-boilerplate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Nodejs Express Sequelize Mysql API Boilerplate with JWT, Swagger, Winston, PM2",
   "main": "index.js",
   "publishConfig": {
