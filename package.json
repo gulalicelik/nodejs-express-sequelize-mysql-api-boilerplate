@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-express-sequelize-mysql-api-boilerplate",
+  "name": "@karinca/nodejs-express-sequelize-mysql-api-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,9 @@
     "start:test": "pm2 start --env test",
     "start:prod": "pm2 start --env prod",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin"       : {
+    "create-nodejs-express-sequelize-mysql-api-boilerplate" : "./bin/cli.js"
   },
   "repository": {
     "type": "git",
