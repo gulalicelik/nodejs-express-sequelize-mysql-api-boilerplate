@@ -6,10 +6,41 @@ clone this repo and start your project
 ## Installation
 
 ```bash
-npx @gulali/nodejs-express-sequelize-mysql-api-boilerplate my-project-name
+npx @gulali/nodejs-express-sequelize-mysql-api-boilerplate my-project-api
 ```
 
 ## Usage
+
+### Database configuration
+
+edit config/config.json file and change your database name, username and password
+
+```bash
+{
+  "development": {
+    "username": "root",
+    "password": "",
+    "database": "api_db_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "",
+    "database": "api_db_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "",
+    "database": "api_db_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+
+```
 
 ```bash
 npm run start:dev
