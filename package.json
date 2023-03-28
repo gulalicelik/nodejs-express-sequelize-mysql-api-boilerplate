@@ -1,8 +1,11 @@
 {
-  "name": "nodejs-express-sequelize-mysql-api-boilerplate",
-  "version": "1.0.2",
-  "description": "",
+  "name": "@gulali/nodejs-express-sequelize-mysql-api-boilerplate",
+  "version": "1.0.4",
+  "description": "Nodejs Express Sequelize Mysql API Boilerplate with JWT, Swagger, Winston, PM2",
   "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
     "start:dev": "pm2 start --env dev",
@@ -10,12 +13,15 @@
     "start:prod": "pm2 start --env prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin"       : {
+    "create-nodejs-express-sequelize-mysql-api-boilerplate" : "./bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["api", "boilerplate", "nodejs", "express", "sequelize", "mysql", "jwt", "swagger", "winston", "pm2","api-boilerplate","nodejs-api", "nodejs-sequelize-api"],
+  "author": "Gülali Çelik",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/issues"
