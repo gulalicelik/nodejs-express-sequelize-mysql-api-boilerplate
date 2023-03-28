@@ -79,10 +79,11 @@ async function setup() {
         console.log();
 
         console.log('We suggest that you start by typing:');
-        console.log(`    cd ${folderName}`);
-        console.log('    npm run start:dev');
-        console.log('    pm2 list');
-        console.log('    pm2 logs');
+        console.log(`run: cd ${folderName}`);
+        console.log(`edit config/config.json file and change your database name, username and password`);
+        console.log('run: npm run start:dev');
+        console.log('run: pm2 list');
+        console.log('run: pm2 logs');
         console.log();
         console.log('Enjoy your Node.js API boilerplate!');
         console.log('Check README.md for more info.');
