@@ -41,7 +41,12 @@ edit config/config.json file and change your database name, username and passwor
 }
 
 ```
+and run this command to create database and tables
+```bash
+npm run prepare
+```
 
+### Run the project
 ```bash
 npm run start:dev
 ```
