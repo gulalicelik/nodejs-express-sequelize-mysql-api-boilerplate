@@ -81,6 +81,7 @@ async function setup() {
         console.log('We suggest that you start by typing:');
         console.log(`run: cd ${folderName}`);
         console.log(`edit config/config.json file and change your database name, username and password`);
+        console.log('run: npm run prepare');
         console.log('run: npm run start:dev');
         console.log('run: pm2 list');
         console.log('run: pm2 logs');
