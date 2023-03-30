@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const helloController = require('../controller/hello.controller.js');
+const helloController = require('../../controller/hello.controller.js');
 
 /**
  * @openapi
