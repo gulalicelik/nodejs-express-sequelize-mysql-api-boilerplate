@@ -1,12 +1,13 @@
-const userRoute = require('./user.route');
-const helloRoute = require('./hello.route');
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('../swagger.js');
+const userRoute = require('./v1/user.route');
+const helloRoute = require('./v1/hello.route');
+
 
 
 const routeManager = (app) => {
-    app.use('/', helloRoute);
-    app.use('/user', userRoute);
+
+    // API V1 Routes
+    app.use('/v1/', helloRoute);
+    app.use('/v1/user', userRoute);
 
 }
 
