@@ -1,32 +1,32 @@
 const  swaggerJsdoc  = require('swagger-jsdoc');
 const  swaggerUi  = require('swagger-ui-express');
 
-const options = {
+const optionsV1 = {
     definition: {
         openapi: '3.0.0',
         info: {
-            title: 'Hero API',
-            description: 'Example of CRUD API ',
+            title: 'My Boilerplate API',
+            description: 'nodejs-express-mysql-api-boilerplate API ',
             version: '1.0.0',
         },
     },
     // looks for configuration in specified directories
-    apis: ['./route/*.js', './controller/*.js', './middleware/*.js'],
+    apis: ['./route/v1/*.js', './controller/*.js', './middleware/*.js'],
 }
 
-const swaggerSpec = swaggerJsdoc(options)
+const swaggerSpecV1 = swaggerJsdoc(optionsV1)
 
 function swaggerDocs(app, port) {
     console.log(`:::::::::::::::: SWAGGER RUNNING ON ${port}.`)
 
-    // Swagger Page
-    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
-
+    // Swagger Page For API V1
+    app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecV1))
     // Documentation in JSON format
-    app.get('/docs-json', (req, res) => {
+    app.get('/v1/docs-json', (req, res) => {
         res.setHeader('Content-Type', 'application/json')
-        res.send(swaggerSpec)
+        res.send(swaggerSpecV1)
     })
+
 }
 
 module.exports = swaggerDocs
