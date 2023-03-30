@@ -73,6 +73,7 @@ async function setup() {
         // Remove extra files
         fs.unlinkSync(path.join(appPath, 'bin', 'cli.js'));
         fs.rmdirSync(path.join(appPath, 'bin'));
+        fs.unlinkSync(path.join(appPath, 'CHANGELOG.md'));
 
 
         console.log('Installation is now complete!');
