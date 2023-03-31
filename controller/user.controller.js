@@ -1,8 +1,6 @@
 const db = require("../models");
+const bcrypt = require("bcrypt");
 const User = db.user;
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const logger = require('../config/logger');
 
 
 const signUp = async (req, res) => {
@@ -37,37 +35,66 @@ const signUp = async (req, res) => {
     })
 }
 
-const signIn = async (req, res) => {
-    // user signin using email and password bcrypt
-    const {email, password} = req.body;
-    const user = await User.findOne({where: {email}});
+const getUserById = async (req, res) => {
+    const {userId} = req.params;
+    const user = await User.findOne({where: {userId}});
     if (user) {
-        const validPassword = bcrypt.compareSync(password, user.password);
-        if (validPassword) {
-            // generate jwt token for user
-            const token = jwt.sign({
-                id      : user.id,
-                username: user.username,
-                email   : user.email,
-            }, process.env.TOKEN_SECRET, {
-                expiresIn: '1h'
-            });
-            logger.info(`User ${user.username} logged in successfully`);
-            res.send({
-                "status" : "success",
-                "message": "User logged in successfully",
-                "token"  : token,
-                "data"   : user
-            })
-            return;
-        }
+        res.send({
+            "status" : "success",
+            "message": "User fetched successfully",
+            "data"   : user
+        })
+        return;
     }
     res.send({
         "status" : "error",
-        "message": "Invalid email or password",
+        "message": "User not found",
     })
 }
-
+const updateUserById = async (req, res) => {
+    const {userId} = req.params;
+    const {firstname, lastname, username, email, password} = req.body;
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
+    const user = {
+        firstname,
+        lastname,
+        username,
+        email,
+        password: hash
+    }
+    const [row, created] = await User.update(user, {
+        where: {userId},
+    });
+    if (row) {
+        res.send({
+            "status" : "success",
+            "message": "User updated successfully",
+            "data"   : row
+        })
+        return;
+    }
+    res.send({
+        "status" : "error",
+        "message": "User not found",
+    })
+}
+const deleteUserById = async (req, res) => {
+    const {userId} = req.params;
+    const user = await User.destroy({where: {userId}});
+    if (user) {
+        res.send({
+            "status" : "success",
+            "message": "User deleted successfully",
+            "data"   : user
+        })
+        return;
+    }
+    res.send({
+        "status" : "error",
+        "message": "User not found",
+    })
+}
 
 const getAllUsers = async (req, res) => {
     const users = await User.findAll();
@@ -81,6 +108,9 @@ const getAllUsers = async (req, res) => {
 
 module.exports = {
     signUp,
-    signIn,
+    getUserById,
+    updateUserById,
+    deleteUserById,
     getAllUsers
+
 }
