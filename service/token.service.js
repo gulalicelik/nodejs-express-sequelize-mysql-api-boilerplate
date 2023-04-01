@@ -8,7 +8,6 @@ const { tokenTypes } = require('../config/token');
 
 
 const generateToken = (userId, expires, type, secret = process.env.JWT_SECRET) => {
-  console.log("jwt secret", process.env.JWT_SECRET)
   const payload = {
     sub: userId,
     iat: moment().unix(),
@@ -25,7 +24,7 @@ const saveToken = async (token, userId, expires, type, blacklisted = false) => {
     user_id: userId,
     expire_at: expires.toDate(),
     type,
-    blacklisted,
+    black_listed : blacklisted,
   });
 
   return tokenDoc;

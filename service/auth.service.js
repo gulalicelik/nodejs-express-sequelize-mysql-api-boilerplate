@@ -1,10 +1,11 @@
 const httpStatus = require('http-status');
 const bcrypt = require('bcrypt');
-// const tokenService = require('./token.service');
+const tokenService = require('./token.service');
 const userService = require('./user.service');
-// const Token = require('../models/token.model');
+const db = require("../models");
+const Token = db.token;
 const ApiError = require('../utils/ApiError');
-// const { tokenTypes } = require('../config/tokens');
+const {tokenTypes} = require('../config/token');
 
 /**
  * Login with username and password
@@ -13,11 +14,11 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<User>}
  */
 const loginUserWithEmailAndPassword = async (email, password) => {
-  const user = await userService.getUserByEmail(email);
-  if (!user || !(await bcrypt.compare(password, user.password))) {
-    return null;
-  }
-  return user;
+    const user = await userService.getUserByEmail(email);
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return null;
+    }
+    return user;
 };
 
 /**
@@ -26,11 +27,17 @@ const loginUserWithEmailAndPassword = async (email, password) => {
  * @returns {Promise}
  */
 const logout = async (refreshToken) => {
-  const refreshTokenDoc = await Token.findOne({ token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false });
-  if (!refreshTokenDoc) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
-  }
-  await refreshTokenDoc.remove();
+    const refreshTokenDoc = await Token.findOne({
+        where: {
+            token      : refreshToken,
+            type       : tokenTypes.REFRESH,
+            black_listed: false
+        }
+    });
+    if (!refreshTokenDoc) {
+        return null;
+    }
+    await refreshTokenDoc.destroy();
 };
 
 /**
@@ -39,17 +46,17 @@ const logout = async (refreshToken) => {
  * @returns {Promise<Object>}
  */
 const refreshAuth = async (refreshToken) => {
-  try {
-    const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
-    const user = await userService.getUserById(refreshTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    try {
+        const refreshTokenDoc = await tokenService.verifyToken(refreshToken, tokenTypes.REFRESH);
+        const user = await userService.getUserById(refreshTokenDoc.user);
+        if (!user) {
+            throw new Error();
+        }
+        await refreshTokenDoc.remove();
+        return tokenService.generateAuthTokens(user);
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
     }
-    await refreshTokenDoc.remove();
-    return tokenService.generateAuthTokens(user);
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
-  }
 };
 
 /**
@@ -59,17 +66,17 @@ const refreshAuth = async (refreshToken) => {
  * @returns {Promise}
  */
 const resetPassword = async (resetPasswordToken, newPassword) => {
-  try {
-    const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
-    const user = await userService.getUserById(resetPasswordTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    try {
+        const resetPasswordTokenDoc = await tokenService.verifyToken(resetPasswordToken, tokenTypes.RESET_PASSWORD);
+        const user = await userService.getUserById(resetPasswordTokenDoc.user);
+        if (!user) {
+            throw new Error();
+        }
+        await userService.updateUserById(user.id, {password: newPassword});
+        await Token.deleteMany({user: user.id, type: tokenTypes.RESET_PASSWORD});
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
     }
-    await userService.updateUserById(user.id, { password: newPassword });
-    await Token.deleteMany({ user: user.id, type: tokenTypes.RESET_PASSWORD });
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
-  }
 };
 
 /**
@@ -78,23 +85,23 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
  * @returns {Promise}
  */
 const verifyEmail = async (verifyEmailToken) => {
-  try {
-    const verifyEmailTokenDoc = await tokenService.verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
-    const user = await userService.getUserById(verifyEmailTokenDoc.user);
-    if (!user) {
-      throw new Error();
+    try {
+        const verifyEmailTokenDoc = await tokenService.verifyToken(verifyEmailToken, tokenTypes.VERIFY_EMAIL);
+        const user = await userService.getUserById(verifyEmailTokenDoc.user);
+        if (!user) {
+            throw new Error();
+        }
+        await Token.deleteMany({user: user.id, type: tokenTypes.VERIFY_EMAIL});
+        await userService.updateUserById(user.id, {isEmailVerified: true});
+    } catch (error) {
+        throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
     }
-    await Token.deleteMany({ user: user.id, type: tokenTypes.VERIFY_EMAIL });
-    await userService.updateUserById(user.id, { isEmailVerified: true });
-  } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
-  }
 };
 
 module.exports = {
-  loginUserWithEmailAndPassword,
-  logout,
-  refreshAuth,
-  resetPassword,
-  verifyEmail,
+    loginUserWithEmailAndPassword,
+    logout,
+    refreshAuth,
+    resetPassword,
+    verifyEmail,
 };
