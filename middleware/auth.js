@@ -1,28 +1,31 @@
-const jwt = require('jsonwebtoken')
+const passport = require('passport');
+const httpStatus = require('http-status');
+const ApiError = require('../utils/ApiError');
+const { roleRights } = require('../config/roles');
 
-
-module.exports.checkAuth= (req, res, next) => {
-    try {
-        const token = req.headers.authorization.split(" ")[1]
-        const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
-        next();
-    } catch (error) {
-        if (error.name === "TokenExpiredError") {
-            return res.status(401).send({
-                message: 'Expired token',
-                status: -1
-            })
-        } else if (error.name === "JsonWebTokenError") {
-            return res.status(401).send({
-                message: 'Invalid token',
-                status: -1
-            })
-        } else {
-            return res.status(401).send({
-                message: 'Unauthorized access',
-                status: -1
-            })
-        }
-
+const verifyCallback = (req, resolve, reject, requiredRights) => async (err, user, info) => {
+    if (err || info || !user) {
+        return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
     }
-}
+    req.user = user;
+
+    if (requiredRights.length) {
+        const userRights = roleRights.get(user.role);
+        const hasRequiredRights = requiredRights.every((requiredRight) => userRights.includes(requiredRight));
+        if (!hasRequiredRights && req.params.userId !== user.id) {
+            return reject(new ApiError(httpStatus.FORBIDDEN, 'Forbidden'));
+        }
+    }
+
+    resolve();
+};
+
+const auth = (...requiredRights) => async (req, res, next) => {
+    return new Promise((resolve, reject) => {
+        passport.authenticate('jwt', { session: false }, verifyCallback(req, resolve, reject, requiredRights))(req, res, next);
+    })
+        .then(() => next())
+        .catch((err) => next(err));
+};
+
+module.exports = auth;
