@@ -4,8 +4,7 @@
   "description": "Nodejs Express Sequelize Mysql API Boilerplate with JWT, Swagger, Winston, PM2",
   "main": "index.js",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "scripts": {
     "prepare": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
