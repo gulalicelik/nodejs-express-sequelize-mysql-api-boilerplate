@@ -7,7 +7,8 @@ const db = require("./models/index");
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const swaggerDocs = require('./swagger.js')
-
+const passport = require('passport');
+const { jwtStrategy } = require('./config/passport');
 
 app.use(express.json())
 app.use(bodyParser.json())
@@ -21,6 +22,10 @@ db.sequelize.sync()
     .catch((err) => {
         console.log("Failed to sync db: " + err.message);
     });
+
+// jwt authentication
+app.use(passport.initialize());
+passport.use('jwt', jwtStrategy);
 
 routeManager(app)
 swaggerDocs(app, process.env.PORT)

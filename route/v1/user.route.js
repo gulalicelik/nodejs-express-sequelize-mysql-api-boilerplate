@@ -9,14 +9,14 @@ const validator = require("../../middleware/validators");
 router
     .route('/')
     .post(validator.validateSignUp, userController.signUp)
-    .get(auth.checkAuth, userController.getAllUsers);
+    .get(userController.getAllUsers);
 
 
 router
     .route('/:id')
-    .get(auth.checkAuth, userController.getUserById)
+    .get(auth('getUsers'), userController.getUserById)
     .patch( userController.updateUser)
-    .delete(auth.checkAuth, userController.deleteUser);
+    .delete(userController.deleteUser);
 
 
 
