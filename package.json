@@ -14,14 +14,28 @@
     "start:prod": "pm2 start --env prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "bin"       : {
-    "create-nodejs-express-sequelize-mysql-api-boilerplate" : "./bin/cli.js"
+  "bin": {
+    "create-nodejs-express-sequelize-mysql-api-boilerplate": "./bin/cli.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate.git"
   },
-  "keywords": ["api", "boilerplate", "nodejs", "express", "sequelize", "mysql", "jwt", "swagger", "winston", "pm2","api-boilerplate","nodejs-api", "nodejs-sequelize-api"],
+  "keywords": [
+    "api",
+    "boilerplate",
+    "nodejs",
+    "express",
+    "sequelize",
+    "mysql",
+    "jwt",
+    "swagger",
+    "winston",
+    "pm2",
+    "api-boilerplate",
+    "nodejs-api",
+    "nodejs-sequelize-api"
+  ],
   "author": "Gülali Çelik",
   "license": "ISC",
   "bugs": {
@@ -35,6 +49,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.14.2",
+    "http-status": "^1.6.2",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
