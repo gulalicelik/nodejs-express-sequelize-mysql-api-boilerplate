@@ -30,5 +30,21 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+
+  user.isEmailTaken = async (email, excludeUserId) => {
+    const user = await user.findOne({
+      where: {
+        email,
+        userId: {
+          [Op.ne]: excludeUserId
+        }
+      }
+    });
+    return user;
+  }
+
+  user.isPasswordMatch = async (password, hash) => {
+    return bcrypt.compareSync(password, hash);
+  }
   return user;
 };

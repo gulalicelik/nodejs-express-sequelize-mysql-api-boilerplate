@@ -13,10 +13,10 @@ router
 
 
 router
-    .route('/:userId')
+    .route('/:id')
     .get(auth.checkAuth, userController.getUserById)
-    .patch(auth.checkAuth, userController.updateUserById)
-    .delete(auth.checkAuth, userController.deleteUserById);
+    .patch( userController.updateUser)
+    .delete(auth.checkAuth, userController.deleteUser);
 
 
 
