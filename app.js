@@ -9,6 +9,12 @@ const bodyParser = require('body-parser')
 const swaggerDocs = require('./swagger.js')
 const passport = require('passport');
 const { jwtStrategy } = require('./config/passport');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+
+// set security HTTP headers
+app.use(helmet());
+app.use(xss());
 
 app.use(express.json())
 app.use(bodyParser.json())
