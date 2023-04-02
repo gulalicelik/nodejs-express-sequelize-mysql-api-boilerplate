@@ -9,6 +9,12 @@ const emailService = require("../service/email.service");
 const login = catchAsync(async (req, res) => {
     const {email, password} = req.body;
     const user = await authService.loginUserWithEmailAndPassword(email, password);
+    if (!user) {
+        res.status(httpStatus.UNAUTHORIZED).send({
+            "message": "Invalid credentials",
+        });
+        return;
+    }
     const tokens = await tokenService.generateAuthTokens(user);
     res.send({user, tokens});
 });
@@ -44,10 +50,17 @@ const forgotPassword = catchAsync(async (req, res) => {
 });
 
 
+const resetPassword = catchAsync(async (req, res) => {
+    await authService.resetPassword(req.query.token, req.body.password);
+    res.status(httpStatus.NO_CONTENT).send();
+});
+
+
 module.exports = {
     login,
     register,
     logout,
     refreshTokens,
     forgotPassword,
+    resetPassword,
 }
