@@ -1,6 +1,6 @@
 {
   "name": "@gulali/nodejs-express-sequelize-mysql-api-boilerplate",
-  "version": "1.1.0",
+  "version": "1.2.1",
   "description": "Nodejs Express Sequelize Mysql API Boilerplate with JWT, Swagger, Winston, PM2",
   "main": "index.js",
   "publishConfig": {
@@ -53,6 +53,7 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",

@@ -41,15 +41,18 @@ const getUserByEmail = async (email) => {
 
 
 const updateUserById = async (userId, updateBody) => {
-    const {firstname, lastname, username, email, password} =updateBody;
-    const salt = bcrypt.genSaltSync(10);
-    const hash = bcrypt.hashSync(password, salt);
+    const {firstname, lastname, username, email, password, active} =updateBody;
     const user = {
         firstname,
         lastname,
         username,
         email,
-        password: hash
+        active,
+    }
+    if(password){
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(password, salt);
+        user.password = hash;
     }
 
     const row = await User.update(user, {
