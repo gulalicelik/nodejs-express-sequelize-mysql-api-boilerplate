@@ -1,6 +1,17 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+## [1.2.0](https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/compare/V1.1.0...V1.2.0) (2023-04-02)
+
+### Features
+
+- refresh token route added
+- reset password added
+- forgot password added
+- email service added
+- verification mail added
+
+
 
 ## [1.1.0](https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/compare/V1.0.10...V1.1.0) (2023-04-01)
 
