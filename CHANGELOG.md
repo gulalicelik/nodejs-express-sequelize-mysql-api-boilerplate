@@ -1,6 +1,13 @@
 # Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [1.2.2](https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/compare/V1.2.1...V1.2.2) (2023-04-08)
+
+### Features
+
+- swagger docs for auth and user routes
+
 ## [1.2.1](https://github.com/gulalicelik/nodejs-express-sequelize-mysql-api-boilerplate/compare/V1.1.0...V1.2.1) (2023-04-02)
 
 ### Features
