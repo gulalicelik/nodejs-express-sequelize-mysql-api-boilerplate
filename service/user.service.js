@@ -4,7 +4,7 @@ const User = db.user;
 
 
 const createUser = async (params) => {
-    const {firstname, lastname, username, email, password} = params;
+    const {firstname, lastname, username, email, password,role} = params;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
     const user = {
@@ -12,7 +12,10 @@ const createUser = async (params) => {
         lastname,
         username,
         email,
-        password: hash
+        password: hash,
+        role,
+        active: 0,
+        deleted : 0
     }
 
     const [row, created] = await User.findOrCreate({
